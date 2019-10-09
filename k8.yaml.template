@@ -1,0 +1,34 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: oracle-digitalassistant-hnb-component
+  labels:
+    app: oracle-digitalassistant-hnb-component
+spec:
+  type: LoadBalancer
+  selector:
+    app: oracle-digitalassistant-hnb-component
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: oracle-digitalassistant-hnb-component
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: oracle-digitalassistant-hnb-component
+        version: v1
+    spec:
+      containers:
+      - name: oracle-digitalassistant-hnb-component
+        image: ${DOCKER_REGISTRY}/${DOCKER_REPO_FRONTEND}:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---

@@ -1,0 +1,17 @@
+{
+    "name": "exchange-rate-component-wrapper",
+    "version": "1.0.0",
+    "description": "ZABA exchange rate endpoint wrapper",
+    "main": "service.js",
+    "dependencies": {
+        "@oracle/bots-node-sdk": "^2.1.0",
+        "express": "4.16.4"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "pack:cc": "bots-node-sdk pack ./exchange-rate-component",
+        "postinstall": "cd exchange-rate-component && npm install --production"
+    },
+    "author": "ivan.delic",
+    "license": "ISC"
+}

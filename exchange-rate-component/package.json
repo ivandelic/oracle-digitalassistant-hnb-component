@@ -1,0 +1,19 @@
+{
+  "name": "exchange-rate-component",
+  "version": "1.0.0",
+  "description": "ZABA exchange rate component",
+  "main": "main.js",
+  "dependencies": {
+    "request": "2.88.0"
+  },
+  "devDependencies": {
+    "@oracle/bots-node-sdk": "^2.1.0"
+  },
+  "scripts": {
+    "bots-node-sdk": "bots-node-sdk",
+    "start": "npm run bots-node-sdk -- service .",
+    "prepack": "npm run bots-node-sdk -- pack --dry-run ."
+  },
+  "author": "ivan.delic",
+  "license": "ISC"
+}

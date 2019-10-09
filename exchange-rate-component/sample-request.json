@@ -1,0 +1,32 @@
+{
+    "botId": "xyz",
+    "platformVersion": "1.1",
+    "context": {},
+    "properties": {
+      "currency": "EUR",
+      "date": {
+        "date": 1547078400000,
+        "entityName": "DATE",
+        "originalString": "10.1.2019"
+      },
+      "type": "Selling",
+      "output": "Tecaj za {currency} na dan {date} je {rate}"
+    },
+    "message": {
+      "payload": {},
+      "messagePayload": {},
+      "retryCount": 0,
+      "channelConversation": {
+        "botId": "xyz",
+        "sessionId": "1234",
+        "type": "test",
+        "userId": "1234",
+        "channelId": "sample"
+      },
+      "componentResponse": {},
+      "executionContext": "any",
+      "tenantId": "1234",
+      "createdOn": "2018-06-20T20:24:33.151Z",
+      "id": "1234"
+    }
+  }

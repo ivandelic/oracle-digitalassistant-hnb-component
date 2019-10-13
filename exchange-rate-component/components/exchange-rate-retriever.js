@@ -55,7 +55,13 @@ module.exports = {
                 }
 
                 let rate = body[0][conversionTypes[type]];
-                let answer = !!output ? output.replace("{currency}", currency).replace("{date}", date).replace("{rate}", rate) : rate;
+
+                const RoundingMode = Java.type('java.math.RoundingMode');
+                const BigDecimal = Java.type('java.math.BigDecimal');
+                var decimal = BigDecimal.valueOf(parseFloat(rate.replace(',', '.')));
+                decimal = decimal.setScale(2, RoundingMode.HALF_EVEN);
+
+                let answer = !!output ? output.replace("{currency}", currency).replace("{date}", date).replace("{rate}", decimal) : rate;
                 conversation.reply(answer);
                 conversation.transition("exchangeSuccess");
                 return done();

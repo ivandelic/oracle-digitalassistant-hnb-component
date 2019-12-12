@@ -56,12 +56,15 @@ module.exports = {
 
                 let rate = body[0][conversionTypes[type]];
 
-                const RoundingMode = Java.type('java.math.RoundingMode');
-                const BigDecimal = Java.type('java.math.BigDecimal');
-                var decimal = BigDecimal.valueOf(parseFloat(rate.replace(',', '.')));
-                decimal = decimal.setScale(2, RoundingMode.HALF_EVEN);
+		if (typeof Java !== 'undefined') {
+		    console.log('Using GraalVM Node.js implementation to round result with java.math.BigDecimal.');
+                    const RoundingMode = Java.type('java.math.RoundingMode');
+                    const BigDecimal = Java.type('java.math.BigDecimal');
+                    var decimal = BigDecimal.valueOf(parseFloat(rate.replace(',', '.')));
+                    rate = decimal.setScale(2, RoundingMode.HALF_EVEN);
+		}
 
-                let answer = !!output ? output.replace("{currency}", currency).replace("{date}", date).replace("{rate}", decimal) : rate;
+                let answer = !!output ? output.replace("{currency}", currency).replace("{date}", date).replace("{rate}", rate) : rate;
                 conversation.reply(answer);
                 conversation.transition("exchangeSuccess");
                 return done();

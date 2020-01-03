@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: oracle-digitalassistant-hnb-component
-        image: ${DOCKER_REGISTRY}/${DOCKER_REPO_FRONTEND}:latest
+        image: 'eu-frankfurt-1.ocir.io/oraseemeaceeociworkshop/ivandelic/zaba/digitalassistant-hnb-component:latest'
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

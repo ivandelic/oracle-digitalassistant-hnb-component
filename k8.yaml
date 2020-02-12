@@ -43,10 +43,10 @@ spec:
                 name: obp-restproxy1
                 key: username
           - name: OBP_RESTPROXY1_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: obp-restproxy1
-              key: password
+            valueFrom:
+              secretKeyRef:
+                name: obp-restproxy1
+                key: password
       imagePullSecrets:
       - name: ocirsecret
 ---

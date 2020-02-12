@@ -36,8 +36,8 @@ module.exports = {
                     args: [ '' + oib + '']
                 },
                 auth: {
-                    'user': process.env.OBP_RESTPROXY1_USERNAME,
-                    'pass': process.env.OBP_RESTPROXY1_PASSWORD
+                    'user': '' + process.env.OBP_RESTPROXY1_USERNAME + '',
+                    'pass': '' + process.env.OBP_RESTPROXY1_PASSWORD + ''
                 }
             },
             (err, res, body) => {

@@ -36,6 +36,17 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+        env:
+          - name: OBP_RESTPROXY1_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: obp-restproxy1
+                key: username
+          - name: OBP_RESTPROXY1_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: obp-restproxy1
+              key: password
       imagePullSecrets:
       - name: ocirsecret
 ---

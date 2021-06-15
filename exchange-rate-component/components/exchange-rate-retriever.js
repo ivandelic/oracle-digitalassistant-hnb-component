@@ -10,7 +10,8 @@ module.exports = {
             "output": { "type": "string", "required": true },
             "currency": { "type": "string", "required": true },
             "date": { "type": "string", "required": true },
-            "type": { "type": "string", "required": true }
+            "type": { "type": "string", "required": true },
+            "amount": { "type": "string", "required": false }
         },
         "supportedActions": [
             "exchangeSuccess",
@@ -23,9 +24,10 @@ module.exports = {
         let currency = conversation.properties()["currency"];
         let date = conversation.properties()["date"];
         let type = conversation.properties()["type"];
+        let amount = conversation.properties()["amount"];
         let output = conversation.properties()["output"];
 
-        console.log(`Processing request for type "${type}", currency "${currency}" on date "${date}" with response "${output}".`);
+        console.log(`Processing conversion for type "${type}", currency "${currency}", amount "${amount}", on date "${date}" with response "${output}".`);
 
         let conversionTypes = { 
             "Buying": "Kupovni za devize",
@@ -55,16 +57,18 @@ module.exports = {
                 }
 
                 let rate = body[0][conversionTypes[type]];
+                let conversion = 0;
 
-		if (typeof Java !== 'undefined') {
-		    console.log('Using GraalVM Node.js implementation to round result with java.math.BigDecimal.');
+		        if (typeof Java !== 'undefined' && !!amount) {
+		            console.log('Using GraalVM Node.js implementation to round result with java.math.BigDecimal.');
                     const RoundingMode = Java.type('java.math.RoundingMode');
                     const BigDecimal = Java.type('java.math.BigDecimal');
-                    var decimal = BigDecimal.valueOf(parseFloat(rate.replace(',', '.')));
-                    rate = decimal.setScale(2, RoundingMode.HALF_EVEN);
-		}
+                    var rateBd = BigDecimal.valueOf(parseFloat(rate.replace(',', '.')));
+                    var amountBd = BigDecimal.valueOf(parseFloat(amount.replace(',', '.')));
+                    conversion = rateBd.multiply(amountBd).setScale(2, RoundingMode.HALF_EVEN);
+		        }
 
-                let answer = !!output ? output.replace("{currency}", currency).replace("{date}", date).replace("{rate}", rate) : rate;
+                let answer = !!output ? output.replace(/{currency}/g, currency).replace(/{date}/g, date).replace(/{rate}/g, rate).replace(/{conversion}/g, conversion).replace(/{amount}/g, amount) : rate;
                 conversation.reply(answer);
                 conversation.transition("exchangeSuccess");
                 return done();

@@ -9,7 +9,7 @@ const app = express();
 const exchange = require('./components/exchange-rate-retriever');
 
 var input = {
-    'properties': function() { return {'currency': 'EUR', 'date': '2019-10-10', 'type': 'Middle', 'output': 'Exchange rate for {currency} on day {date} is {rate}.'}},
+    'properties': function() { return {'currency': 'CZK', 'date': '2021-06-14', 'type': 'Middle', 'amount': '1000', 'output': 'Exchange rate for {currency} on day {date} is {rate}. Conversion amount {amount} {currency} is {conversion} HRK'}},
     'reply': function(reply) { console.log(reply) },
     'transition': function() {}
 }
@@ -17,6 +17,7 @@ var input = {
 const server = app.listen(port, () => {
     console.info(`Exchange Rate Service Endpoint: ${url} : ${port}`);
     exchange.invoke(input, function() {});
+    server.close();
 });
 
 module.exports = server;

@@ -5,7 +5,7 @@
     "main": "service.js",
     "dependencies": {
         "@oracle/bots-node-sdk": "^2.1.0",
-        "express": "4.16.4"
+        "express": "4.17.3"
     },
     "scripts": {
         "start": "node index.js",
